@@ -1,9 +1,13 @@
 package com.rest.webservices.rest.user;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+@ApiModel(description = "All details about the user. ")
 public class User {
     private int id;
 
@@ -11,6 +15,7 @@ public class User {
     private String name;
 
     @Past()
+    @ApiModelProperty(notes = "Birth date should be in the past")
     private Date birthDate;
 
     public User() {
