@@ -1,21 +1,35 @@
-package com.rest.webservices.rest;
+package com.rest.webservices.rest.helloworld;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
+
+import java.util.Locale;
 
 @RestController
 public class HelloWorldController {
+
+    @Autowired
+    private MessageSource messageSource;
 
     @GetMapping(path = "/hello")
     public HelloWorldBean helloWorldBean() {
         return new HelloWorldBean("Hello world");
     }
 
+    @GetMapping(path = "/hello-world-internationalized")
+    public String helloWorldInternationalized() {
+        return messageSource.getMessage("good.morning.message", null, LocaleContextHolder.getLocale());
+    }
+
     @GetMapping(path = "/hello/path-variable/{name}")
     public HelloWorldBean helloWorldPathVariable(@PathVariable String name) {
         return new HelloWorldBean(String.format("Hello World,%s", name));
     }
+
 }
