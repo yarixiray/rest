@@ -18,7 +18,7 @@ public class UserDaoServiceCommandLineRunnner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         UserEntity user = new UserEntity("Jack", "Admin");
-        userDAOService.insert(user);
+        long insert = userDAOService.insert(user);
         log.info("New user is created: " + user);
     }
 }

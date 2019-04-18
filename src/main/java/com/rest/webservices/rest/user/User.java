@@ -3,12 +3,21 @@ package com.rest.webservices.rest.user;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @ApiModel(description = "All details about the user. ")
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue
     private int id;
 
     @Size(min = 2, message = "Name should have at least two characters !")
@@ -18,6 +27,9 @@ public class User {
     @ApiModelProperty(notes = "Birth date should be in the past")
     private Date birthDate;
 
+    @OneToMany(mappedBy = "user") //one user may have a many posts!
+    private List<Post> posts;
+
     public User() {
     }
 
@@ -25,6 +37,10 @@ public class User {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 
     @Override
